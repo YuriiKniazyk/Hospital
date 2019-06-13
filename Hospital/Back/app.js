@@ -15,6 +15,11 @@ const allUsers = require('./controller/users/allUsers');
 const idUser = require('./controller/users/idUser');
 const updateUser = require('./controller/users/updateUser');
 const ratingUser = require('./controller/users/ratingUser');
+const allComents = require('./controller/comments/allComments');
+const addComent = require('./controller/comments/addComment');
+const updateComent = require('./controller/comments/updateComment');
+const deleteComent = require('./controller/comments/deleteComment');
+const replyComent = require('./controller/comments/replyComment');
 
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
@@ -49,11 +54,11 @@ app.get('/api/users/find', cors(corsOptions), allUsers);
 app.get('/api/user/:id', cors(corsOptions), idUser);
 app.put('/api/user/:id', endsureToken, cors(corsOptions), updateUser)
 app.put('/api/user/:id/rating', cors(corsOptions), ratingUser);
-// app.get('/api/coments', cors(corsOptions), allComents);
-// app.post('/api/coment', cors(corsOptions), addComent);
-// app.put('/api/coment/:id', cors(corsOptions), updateComent);
-// app.delete('/api/coment/:id', cors(corsOptions), deleteComent);
-// app.post('/api/coment/:id/reply', cors(corsOptions), replyComent);
+app.get('/api/coments', cors(corsOptions), allComents);
+app.post('/api/coment', cors(corsOptions), addComent);
+app.put('/api/coment/:id', cors(corsOptions), updateComent);
+app.delete('/api/coment/:id', cors(corsOptions), deleteComent);
+//app.post('/api/coment/:id/reply', cors(corsOptions), replyComent);
 app.use('*', cors(corsOptions), error404);
 
 app.listen(config.port, err => {

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
+import { Rating } from 'src/app/models/rating';
 
 @Component({
   selector: 'app-user',
@@ -23,11 +24,13 @@ export class UserComponent implements OnInit {
     floor: '',
     office: '',
     deyOfwork: '',
-    rating: 5
+    rating: ''
   }];
 
   doctorId: any = '';
   Authorized: boolean = false;
+
+  newNewRating: any;
 
   constructor(private http: HttpClient,
     private route: ActivatedRoute,
@@ -39,6 +42,13 @@ export class UserComponent implements OnInit {
   }
   editProfile(){
     this.router.navigate(['edit']);
+  }
+
+  newRating(){
+    this.user.rating = this.newNewRating;
+    this.http.put('http://localhost:3000/api/user/' + this.doctorId + '/rating', this.user).subscribe((data:Rating) => {
+      this.user.rating = data.rating;
+    });
   }
 
   ngOnInit() {
