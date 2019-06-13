@@ -22,25 +22,33 @@ export class UserComponent implements OnInit {
     email: '',
     floor: '',
     office: '',
-    deyOfwork: ''
-}];
+    deyOfwork: '',
+    rating: 5
+  }];
 
-doctorId: any = '';
+  doctorId: any = '';
+  Authorized: boolean = false;
 
-constructor(private http: HttpClient,
-  private route: ActivatedRoute) { 
- 
-  this.route.params.subscribe(params => {
-    this.doctorId = params['uuid'];
- });
-}
+  constructor(private http: HttpClient,
+    private route: ActivatedRoute,
+    private router: Router) { 
+  
+    this.route.params.subscribe(params => {
+      this.doctorId = params['uuid'];
+    });
+  }
+  editProfile(){
+    this.router.navigate(['edit']);
+  }
 
-ngOnInit() {
-  this.http.get('http://localhost:3000/api/user/' + this.doctorId).subscribe((data): any => {
-    this.user = data;
-    console.log(data);
-  });
+  ngOnInit() {
+    this.http.get('http://localhost:3000/api/user/' + this.doctorId).subscribe((data): any => {
+      this.user = data;
+    });
+  }
 
-}
+  ngDoCheck(){
+    this.Authorized = !!localStorage.getItem('IsAuthorized');    
+  }
 
 }

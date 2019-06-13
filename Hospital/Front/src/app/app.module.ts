@@ -20,6 +20,7 @@ import {Observable} from 'rxjs';
 import { HttpAuthInterceptor } from './http-interceptors/auth.interceptor';
 import { LogoutComponent } from './pages/logout/logout.component';
 import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.component';
+import { EditProfileComponent } from './pages/edit-profile/edit-profile.component';
 
 
 const routes: Routes = [
@@ -32,6 +33,7 @@ const routes: Routes = [
   {path: 'register', component: RegisterComponent},
   {path: 'about', component: AboutComponent},
   {path: 'search/result', component: SearchComponent},
+  {path: 'edit', component: EditProfileComponent},
   {path: '**', component: PageNotFoundComponent }
 ];
 
@@ -47,7 +49,8 @@ const routes: Routes = [
     RegisterComponent,
     SearchComponent,
     LogoutComponent,
-    PageNotFoundComponent
+    PageNotFoundComponent,
+    EditProfileComponent
   ],
   imports: [
     BrowserModule,

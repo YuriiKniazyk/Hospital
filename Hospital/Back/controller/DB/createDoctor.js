@@ -16,7 +16,8 @@ module.exports = async (req, res) => {
             email,
             floor,
             office,
-            deyOfwork} = req.body;
+            deyOfwork,
+            rating} = req.body;
 
         const user = {
             doctor,
@@ -31,7 +32,8 @@ module.exports = async (req, res) => {
             email,
             floor,
             office,
-            deyOfwork             
+            deyOfwork,
+            rating             
         };
         
         await mongoose.connect(config.mongourl, {useNewUrlParser: true}, async function (err) {
@@ -51,7 +53,8 @@ module.exports = async (req, res) => {
                 email: user.email,
                 floor: user.floor,
                 office: user.office,
-                deyOfwork: user.deyOfwork   
+                deyOfwork: user.deyOfwork,
+                rating: user.rating   
             });
     
             await doctorModel.findOne({login: req.body.login, password: req.body.password})
@@ -65,5 +68,4 @@ module.exports = async (req, res) => {
     } 
         catch(e){console.log(e);
     }
-    
 };

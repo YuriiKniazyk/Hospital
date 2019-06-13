@@ -22,7 +22,8 @@ export class RegisterComponent implements OnInit {
     floor: 0,
     office: 0,
     deyOfwork: '',
-    id_department: ''             
+    id_department: '',
+    rating: 5             
 };
   constructor(private http: HttpClient, private router: Router) { }
   
@@ -41,7 +42,8 @@ export class RegisterComponent implements OnInit {
           floor: 0,
           office: 0,
           deyOfwork: '',
-          id_department: ''             
+          id_department: '',
+          rating: 5             
       };
       this.router.navigate(['/']);
     });

@@ -15,7 +15,8 @@ let doctorSchema = new Schema({
     email: String,
     floor: Number,
     office: Number,
-    deyOfwork: String
+    deyOfwork: String,
+    rating: Number
 });
 
 let doctorModel = mongoose.model('Doctors', doctorSchema);

@@ -3,6 +3,8 @@ const app = express()
 const opn = require('opn');
 const path = require('path');
 const cors  = require('cors');
+const jwtLogin = require('./controller/jwt/jwtLogin');
+const endsureToken = require('./controller/jwt/endsureToken');
 const error404 = require('./controller/error404');
 const config = require('./controller/config');
 const createDoctor = require('./controller/DB/createDoctor');
@@ -12,8 +14,7 @@ const idDepartment = require('./controller/departments/idDepartment');
 const allUsers = require('./controller/users/allUsers');
 const idUser = require('./controller/users/idUser');
 const updateUser = require('./controller/users/updateUser');
-const jwtLogin = require('./controller/jwt/jwtLogin');
-const endsureToken = require('./controller/jwt/endsureToken');
+const ratingUser = require('./controller/users/ratingUser');
 
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
@@ -47,6 +48,7 @@ app.get('/api/departments/:id', cors(corsOptions), idDepartment);
 app.get('/api/users/find', cors(corsOptions), allUsers);
 app.get('/api/user/:id', cors(corsOptions), idUser);
 app.put('/api/user/:id', endsureToken, cors(corsOptions), updateUser)
+app.put('/api/user/:id/rating', cors(corsOptions), ratingUser);
 // app.get('/api/coments', cors(corsOptions), allComents);
 // app.post('/api/coment', cors(corsOptions), addComent);
 // app.put('/api/coment/:id', cors(corsOptions), updateComent);

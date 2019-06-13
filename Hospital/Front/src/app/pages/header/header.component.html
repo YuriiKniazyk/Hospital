@@ -1,4 +1,4 @@
-<nav class="navbar navbar-inverse">
+<nav class="navbar navbar-dark bg-dark">
   <div class="container-fluid">
     <div class="navbar-header">
       <a class="navbar-brand active" href="" >Welcome to Hospital!</a>
@@ -14,11 +14,13 @@
       </div>
     </form>
     <ul class="nav navbar-nav">
-      <li *ngIf="!Authorized"><a href="login">Login</a></li>
-      <li *ngIf="Authorized"><a href="logout">Logout</a></li>
-      <li><a href="register">Register</a></li>
       <li><a href="">Departments</a></li>
       <li><a href="about">About us</a></li>
     </ul>
+    <ul class="nav navbar-nav navbar-right">
+        <li *ngIf="!Authorized"><a href="login">Login</a></li>
+        <li *ngIf="Authorized"><a href="logout">Logout</a></li>
+        <li><a href="register">Register</a></li>
+      </ul>
   </div>
 </nav>

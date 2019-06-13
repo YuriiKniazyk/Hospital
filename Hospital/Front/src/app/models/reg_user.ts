@@ -11,5 +11,6 @@ export class Reg_User {
     floor: Number;
     office: Number;
     deyOfwork: String;
-    id_department: String
+    id_department: String;
+    rating: Number
 }

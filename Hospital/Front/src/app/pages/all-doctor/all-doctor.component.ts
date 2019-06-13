@@ -34,7 +34,6 @@ export class AllDoctorComponent implements OnInit {
     this.route.params.subscribe(params => {
       this.departmentId = params['uuid'];
    });
-    // console.log(this.departmentId);
   }
   
   ngOnInit() {
