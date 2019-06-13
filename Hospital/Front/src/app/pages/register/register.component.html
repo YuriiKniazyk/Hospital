@@ -1,0 +1,17 @@
+<h2>Register on this site</h2>
+<form>
+  <input type="text" name='name' placeholder="Enter your name: " [(ngModel)]="user.name"><br>
+  <input type="text" name="surname" placeholder="Enter your surname: " [(ngModel)]="user.surname"><br>
+  <input type="text" name='login' placeholder="Enter your login: " [(ngModel)]="user.login"><br>
+  <input type="password" name="password" placeholder="Enter your password: "[(ngModel)]="user.password"><br>
+  <input type="text" name='doctor' placeholder="You doctor? yes/no: " [(ngModel)]="user.doctor"><br>
+  <input type="text" name='id_department' placeholder="Enter your id_department: " [(ngModel)]="user.id_department"><br>
+  <input type="email" name="email" placeholder="Enter your email: "[(ngModel)]="user.email"><br>
+  <input type="number" name='experiens' placeholder="Enter your experiens: " [(ngModel)]="user.experiens"><br>
+  <input type="text" name='description' placeholder="Enter your description: " [(ngModel)]="user.description"><br>
+  <input type="text" name='phone' placeholder="Enter your phone: " [(ngModel)]="user.phone"><br>
+  <input type="number" name='floor' placeholder="Enter your floor: " [(ngModel)]="user.floor"><br>
+  <input type="number" name='office' placeholder="Enter your office: " [(ngModel)]="user.office"><br>
+  <input type="text" name='deyOfwork' placeholder="Enter your deyOfwork: " [(ngModel)]="user.deyOfwork"><br>
+  <button (click) = "register()">Register Me</button>
+</form>
