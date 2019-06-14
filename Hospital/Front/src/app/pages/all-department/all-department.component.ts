@@ -14,7 +14,6 @@ export class AllDepartmentComponent implements OnInit {
   ngOnInit() {
     this.http.get('http://localhost:3000/api/departments').subscribe((data): any => {
       this.departments = data;
-      console.log(data);
     });
   }
 

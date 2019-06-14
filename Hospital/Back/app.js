@@ -1,5 +1,6 @@
 const express = require('express')
 const app = express()
+const mongoose = require('mongoose');
 const opn = require('opn');
 const path = require('path');
 const cors  = require('cors');
@@ -19,10 +20,6 @@ const allComents = require('./controller/comments/allComments');
 const addComent = require('./controller/comments/addComment');
 const updateComent = require('./controller/comments/updateComment');
 const deleteComent = require('./controller/comments/deleteComment');
-const replyComent = require('./controller/comments/replyComment');
-
-app.use(express.json());
-app.use(express.urlencoded({extended: true}));
 
 let whitelist = ['http://localhost:4200', 'http://localhost:3000']
 let corsOptions = {
@@ -34,6 +31,12 @@ let corsOptions = {
     }
   }
 }
+
+mongoose.set('useFindAndModify', false);
+
+app.use(express.json());
+app.use(express.urlencoded({extended: true}));
+
 app.use((req, res, next) => {
   res.header("Access-Control-Allow-Origin", '*');
   res.header("Access-Control-Allow-Credentials", true);
@@ -54,11 +57,10 @@ app.get('/api/users/find', cors(corsOptions), allUsers);
 app.get('/api/user/:id', cors(corsOptions), idUser);
 app.put('/api/user/:id', endsureToken, cors(corsOptions), updateUser)
 app.put('/api/user/:id/rating', cors(corsOptions), ratingUser);
-app.get('/api/coments', cors(corsOptions), allComents);
+app.get('/api/coments/doctor/:id', cors(corsOptions), allComents);
 app.post('/api/coment', cors(corsOptions), addComent);
 app.put('/api/coment/:id', cors(corsOptions), updateComent);
 app.delete('/api/coment/:id', cors(corsOptions), deleteComent);
-//app.post('/api/coment/:id/reply', cors(corsOptions), replyComent);
 app.use('*', cors(corsOptions), error404);
 
 app.listen(config.port, err => {

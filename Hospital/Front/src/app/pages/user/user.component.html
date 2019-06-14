@@ -16,23 +16,24 @@
                 </div>             
                 <div class="col-xs-12 col-sm-4 text-center">
                     <figure>
-                        <img src="http://www.localcrimenews.com/wp-content/uploads/2013/07/default-user-icon-profile.png" alt="" class="img-circle img-responsive">
                         <figcaption class="ratings">
                             <p>Ratings:  {{user.rating}}</p>
-                            <div class="input-group">
-                                <label >Select rating
-                                    <select [(ngModel)]="newNewRating" class="form-control">
-                                        <option value="1">1</option>
-                                        <option value="2">2</option>
-                                        <option value="3">3</option>
-                                        <option value="4">4</option>
-                                        <option value="5">5</option>
-                                    </select>                                                
-                                </label>
-                            </div>
-                            <div class="input-group">
-                                <button class="btn btn-warning" (click)="newRating()"> OK </button>  
-                            </div>
+                            
+                                <div class="input-group">
+                                    <label>Select rating
+                                        <select [(ngModel)]="newNewRating" class="form-control">
+                                            <option value="1">1</option>
+                                            <option value="2">2</option>
+                                            <option value="3">3</option>
+                                            <option value="4">4</option>
+                                            <option value="5">5</option>
+                                        </select>                                                
+                                    </label>
+                                </div>
+                                <div class="input-group">
+                                    <button class="btn btn-warning" *ngIf="!isVote" (click)="newRating()"> OK </button>  
+                                </div>
+                            
                         </figcaption>
                     </figure>
                 </div>
@@ -66,4 +67,25 @@
     	 </div>                 
 		</div>
 	</div>
+</div>
+
+
+
+
+<div>
+    <ol>
+        <li *ngFor="let comment of comments" id="{{comment._id}}"> 
+            <a *ngIf="comment.replyCommentId" href="{{path}}#{{comment.replyCommentId}}">It's reploy for {{comment.replyCommentId}}</a>
+            {{comment.text}} <br> <a (click)="reply(comment._id)"> Reply </a>
+        </li>
+
+    </ol>
+</div>
+
+<div>
+    <form>
+        <textarea name="comment" cols="150" rows="10" [(ngModel)]="newComments.text">Write a comment</textarea><br><br>
+        <button type="button" (click)="sendComment()">Send comment</button>
+    </form>
+
 </div>

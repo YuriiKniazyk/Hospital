@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { Rating } from 'src/app/models/rating';
+import { Reg_Comments } from 'src/app/models/comments'
 
 @Component({
   selector: 'app-user',
@@ -29,13 +30,27 @@ export class UserComponent implements OnInit {
 
   doctorId: any = '';
   Authorized: boolean = false;
-
+  isVote: boolean = false;
   newNewRating: any;
+
+  comments: any = [];
+  newComments: Reg_Comments = {
+    _id: '',
+    text: '',
+    data: '',
+    author: '',
+    doctor: '',
+    replyCommentId: null
+  };
+
+  path: String = '';
 
   constructor(private http: HttpClient,
     private route: ActivatedRoute,
     private router: Router) { 
-  
+      
+    this.path = location.pathname;
+
     this.route.params.subscribe(params => {
       this.doctorId = params['uuid'];
     });
@@ -45,20 +60,56 @@ export class UserComponent implements OnInit {
   }
 
   newRating(){
+    
     this.user.rating = this.newNewRating;
     this.http.put('http://localhost:3000/api/user/' + this.doctorId + '/rating', this.user).subscribe((data:Rating) => {
       this.user.rating = data.rating;
+      localStorage.setItem('isVote', '1');
+
     });
+  }
+
+  sendComment(){
+    this.newComments.doctor = this.doctorId
+    this.newComments.data = (new Date()).toString();
+
+    let json = localStorage.getItem('user');
+    let obj = JSON.parse(json);
+    this.newComments.author = obj.id;
+
+    this.http.post('http://localhost:3000/api/coment', this.newComments).subscribe((data:Reg_Comments) => {
+      this.newComments = {
+        _id: '',
+        text: '',
+        data: '',
+        author: '',
+        doctor: '',
+        replyCommentId: null
+      };
+      this.comments.push(data);
+    });
+  }
+
+  reply(id){
+    this.newComments.replyCommentId = id;
+    console.log(id);
   }
 
   ngOnInit() {
     this.http.get('http://localhost:3000/api/user/' + this.doctorId).subscribe((data): any => {
       this.user = data;
     });
+
+    this.http.get('http://localhost:3000/api/coments/doctor/' + this.doctorId).subscribe((data): any => {
+      this.comments = data;
+    });
+
+    
   }
 
   ngDoCheck(){
-    this.Authorized = !!localStorage.getItem('IsAuthorized');    
+    this.Authorized = !!localStorage.getItem('IsAuthorized');  
+    this.isVote = !!localStorage.getItem('isVote');    
   }
 
 }

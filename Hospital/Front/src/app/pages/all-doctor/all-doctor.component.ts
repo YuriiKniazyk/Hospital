@@ -39,7 +39,6 @@ export class AllDoctorComponent implements OnInit {
   ngOnInit() {
     this.http.get('http://localhost:3000/api/departments/' + this.departmentId).subscribe((data): any => {
       this.doctors = data;
-      console.log(data);
     });
 
   }

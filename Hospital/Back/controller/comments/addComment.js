@@ -4,16 +4,19 @@ const commentModel = require('../../DataBase/commentSchema');
 
 module.exports = async (req, res) => {
     try{     
-        const { text,
+        const { 
+        text,
         data,
         author,
-        doctor} = req.body;
+        doctor,
+        replyCommentId} = req.body;
 
         const comment = {
             text,
             data ,
             author ,
-            doctor                
+            doctor,
+            replyCommentId                
         };
         await mongoose.connect(config.mongourl, {useNewUrlParser: true}, async function (err) {
 
@@ -23,7 +26,8 @@ module.exports = async (req, res) => {
                 text: comment.text,
                 data: comment.data,
                 author: comment.author,
-                doctor: comment.doctor  
+                doctor: comment.doctor,
+                replyCommentId: comment.replyCommentId  
             });
             res.json(await commentModel.create(newComment));   
         });  
