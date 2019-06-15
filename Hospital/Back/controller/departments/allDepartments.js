@@ -11,7 +11,7 @@ module.exports = async (req, res) => {
             .exec(function(err, departments) {
                 if (err) throw err;
                 if (!departments) {
-                    departments = {Message: 'ERROR!!! User is not found!!!'};
+                    departments = {Message: 'ERROR!!! Departments is not found!!!'};
                     res.json(departments);
                 } else {
                     res.json(departments);

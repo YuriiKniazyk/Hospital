@@ -18,7 +18,7 @@
                     <figure>
                         <figcaption class="ratings">
                             <p>Ratings:  {{user.rating}}</p>
-                            
+                            <div *ngIf="!isVote">
                                 <div class="input-group">
                                     <label>Select rating
                                         <select [(ngModel)]="newNewRating" class="form-control">
@@ -31,9 +31,9 @@
                                     </label>
                                 </div>
                                 <div class="input-group">
-                                    <button class="btn btn-warning" *ngIf="!isVote" (click)="newRating()"> OK </button>  
+                                    <button class="btn btn-warning"  (click)="newRating()"> OK </button>  
                                 </div>
-                            
+                            </div>
                         </figcaption>
                     </figure>
                 </div>
@@ -68,24 +68,30 @@
 		</div>
 	</div>
 </div>
-
-
-
-
 <div>
     <ol>
         <li *ngFor="let comment of comments" id="{{comment._id}}"> 
-            <a *ngIf="comment.replyCommentId" href="{{path}}#{{comment.replyCommentId}}">It's reploy for {{comment.replyCommentId}}</a>
-            {{comment.text}} <br> <a (click)="reply(comment._id)"> Reply </a>
+           <strong>{{getCommentById(comment.replyCommentId)}}</strong> <br> 
+            {{comment.text}} <br>
+            <a (click)="replyComment(comment._id)"> Reply </a> <br> 
+            <form *ngIf="commentReplying == comment._id"> 
+                    <textarea name="comment" cols="150" rows="10" [(ngModel)]="newComments.text">Reply</textarea><br><br>
+                    <button type="button" (click)="reply(comment._id)">Reply</button>
+            </form>
+            <a (click)="onEditClick(comment._id)">Edit</a><br>
+            <a (click)="onDeleteClick(comment._id)">Delete</a>
+            <form *ngIf="commentEditing == comment._id"> 
+                <textarea name="comment" cols="150" rows="10" [(ngModel)]="comment.text">Edit</textarea><br><br>
+                <button type="button" (click)="doEditComment(comment.text)">Edit</button>
+            </form>
         </li>
-
     </ol>
 </div>
 
-<div>
+<div *ngIf="Authorized">
     <form>
         <textarea name="comment" cols="150" rows="10" [(ngModel)]="newComments.text">Write a comment</textarea><br><br>
         <button type="button" (click)="sendComment()">Send comment</button>
     </form>
-
 </div>
+

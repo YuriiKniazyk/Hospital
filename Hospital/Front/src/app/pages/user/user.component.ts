@@ -45,6 +45,9 @@ export class UserComponent implements OnInit {
 
   path: String = '';
 
+  commentEditing: any = '';
+  commentReplying: any = '';
+
   constructor(private http: HttpClient,
     private route: ActivatedRoute,
     private router: Router) { 
@@ -55,6 +58,7 @@ export class UserComponent implements OnInit {
       this.doctorId = params['uuid'];
     });
   }
+  
   editProfile(){
     this.router.navigate(['edit']);
   }
@@ -64,7 +68,7 @@ export class UserComponent implements OnInit {
     this.user.rating = this.newNewRating;
     this.http.put('http://localhost:3000/api/user/' + this.doctorId + '/rating', this.user).subscribe((data:Rating) => {
       this.user.rating = data.rating;
-      localStorage.setItem('isVote', '1');
+      localStorage.setItem(this.user._id, '1');
 
     });
   }
@@ -92,8 +96,42 @@ export class UserComponent implements OnInit {
 
   reply(id){
     this.newComments.replyCommentId = id;
-    console.log(id);
+    this.sendComment();
+    this.commentReplying = '';
   }
+  replyComment(id){
+    this.commentReplying = id;
+  }
+
+
+  getCommentById (id) {
+    const comment = this.comments.find(comment => comment._id === id)
+      if(comment) {
+       return comment.text
+      } else{
+        return ''
+      }
+  }
+
+  doEditComment(text){
+    this.http.put('http://localhost:3000/api/coment/' + this.commentEditing, {text}).subscribe((data: Reg_Comments) => {
+      let curentComment = this.comments.find(comment => comment._id === this.commentEditing)
+      curentComment = data;
+      this.commentEditing = '';
+    });
+  }
+
+  onEditClick(_id){
+    this.commentEditing = _id;    
+  }
+  
+  onDeleteClick(id){
+    this.http.delete('http://localhost:3000/api/coment/' + id).subscribe((data): any => {
+      console.log(data);
+      this.comments = this.comments.filter(comment => comment._id !== id)
+    });
+  }
+
 
   ngOnInit() {
     this.http.get('http://localhost:3000/api/user/' + this.doctorId).subscribe((data): any => {
@@ -109,7 +147,7 @@ export class UserComponent implements OnInit {
 
   ngDoCheck(){
     this.Authorized = !!localStorage.getItem('IsAuthorized');  
-    this.isVote = !!localStorage.getItem('isVote');    
+    this.isVote = !!localStorage.getItem(this.user._id);    
   }
 
 }

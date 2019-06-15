@@ -20,7 +20,6 @@ module.exports = async (req, res) => {
                 if (err) throw err;
                 
                 if (user) { 
-                    //let newUser = {name: user.name, surname: user.surname, id: user._id, doctor: user.doctor}; 
                     let token = jwt.sign( {name: user.name, surname: user.surname, id: user._id, doctor: user.doctor}, config.jwtKey);
                     res.json({
                         token: token,
