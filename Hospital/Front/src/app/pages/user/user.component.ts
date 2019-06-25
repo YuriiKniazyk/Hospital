@@ -69,7 +69,6 @@ export class UserComponent implements OnInit {
     this.http.put('http://localhost:3000/api/user/' + this.doctorId + '/rating', this.user).subscribe((data:Rating) => {
       this.user.rating = data.rating;
       localStorage.setItem(this.user._id, '1');
-
     });
   }
 
