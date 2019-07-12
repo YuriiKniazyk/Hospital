@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 
-
 @Component({
   selector: 'app-product',
   templateUrl: './product.component.html',
@@ -47,7 +46,7 @@ export class ProductComponent implements OnInit {
       });
 
       this.bascket.push(arr);
-      localStorage.setItem('products', JSON.stringify(this.bascket));        
+      localStorage.setItem('products', JSON.stringify(this.bascket));  
     }
   }
 

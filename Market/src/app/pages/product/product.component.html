@@ -1,9 +1,55 @@
 <h1>Choise a product:</h1>
-<ul>
-    <li *ngFor="let product of products">
-        <h3>{{product.name}} <br> {{product.label}} <br> {{product.price}}</h3>
-        <button (click)="Buy(product.id)">Buy</button>
-    </li>
-</ul>
+<div class="container" *ngFor="let product of products">
+    <div class="card">
+        <div class="container-fliud">
+            <div class="wrapper row">
+                <div class="preview col-md-6">
+                    
+                    <div class="preview-pic tab-content">
+                        <div class="tab-pane active" id="pic-1"><img src="https://dtpmhvbsmffsz.cloudfront.net/brands/2017/06/21/53d96e505632a028000002f4/m_594ab9155632a002ab00027d.jpg" /></div>
+                    </div>
+                            
+                </div>
+                <div class="details col-md-6">
+                    <h3 class="product-title">{{product.name}}</h3>
+                    <p class="product-description">{{product.label}}</p>
+                    <h4 class="price">Current price: <span>${{product.price}}</span></h4>
+                    <h5 class="sizes">sizes:
+                        <span class="size" data-toggle="tooltip" title="small">s</span>
+                        <span class="size" data-toggle="tooltip" title="medium">m</span>
+                        <span class="size" data-toggle="tooltip" title="large">l</span>
+                        <span class="size" data-toggle="tooltip" title="xtra large">xl</span>
+                    </h5>
+                    <h5 class="colors">colors:
+                        <span class="color orange not-available" data-toggle="tooltip" title="Not In store"></span>
+                        <span class="color green"></span>
+                        <span class="color blue"></span>
+                    </h5>
+                    <div class="action">
+                        <button class="add-to-cart btn btn-default" type="button" (click)="Buy(product.id)" data-toggle="modal" data-target="#myModal">Add to bascket</button> 
+                        <button [routerLink]="['/bascket']" class="add-to-cart btn btn-default" style="background-color: blue">Bascket</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
-<button [routerLink]="['/bascket']">Bascket</button>
+<div id="myModal" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-sm">
+    
+        <!-- Modal content-->
+        <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        <div class="modal-body">
+            <h3>Product added to cart</h3>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+        </div>
+    
+    </div>
+</div>
