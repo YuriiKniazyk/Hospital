@@ -1,0 +1,16 @@
+<ul *ngIf="products">
+    <li *ngFor="let product of products">
+        {{product.name}} <br>
+        {{product.label}} <br>
+        {{product.price}} <br>
+        <button (click)="DeleteFromBacket(product.id)">Delete</button>
+    </li>
+</ul>
+<div *ngIf="products.length == 0 ">
+    <h3>Bascket is empty!</h3>
+</div>
+
+<h4>
+    BascketPrice: {{bascketPrice}}
+</h4>
+<button [routerLink]="['/product']">Product</button>

@@ -1,0 +1,9 @@
+<h1>Choise a product:</h1>
+<ul>
+    <li *ngFor="let product of products">
+        <h3>{{product.name}} <br> {{product.label}} <br> {{product.price}}</h3>
+        <button (click)="Buy(product.id)">Buy</button>
+    </li>
+</ul>
+
+<button [routerLink]="['/bascket']">Bascket</button>
