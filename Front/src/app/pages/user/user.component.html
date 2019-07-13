@@ -1,0 +1,98 @@
+  <div class="container">
+	<div class="row">
+		<div class="col-12">
+    	 <div class="well profile">
+            <div class="col-sm-12">
+                <div class="col-xs-12 col-sm-8">
+                    <h2>{{user.name}} {{user.surname}}</h2>
+                    <p><strong>About: </strong> Doctor </p>
+                    <p><strong>Description: </strong>{{user.description}}</p>
+                    <p><strong>Day of work:  </strong>{{user.deyOfwork}}</p>
+                    <p><strong>Floor: </strong>{{user.floor}}</p>
+                    <p><strong>Office: </strong>{{user.office}}</p>
+                    <p><strong>Experiens: </strong>{{user.experiens}} years</p>
+                    <p><strong>E-mail: </strong>{{user.email}}</p>
+                    <p><strong>Phone number: </strong>{{user.phone}}</p>
+                </div>             
+                <div class="col-xs-12 col-sm-4 text-center">
+                    <figure>
+                        <figcaption class="ratings">
+                            <p>Ratings:  {{user.rating}}</p>
+                            <div *ngIf="!isVote">
+                                <div class="input-group">
+                                    <label>Select rating
+                                        <select [(ngModel)]="newNewRating" class="form-control">
+                                            <option value="1">1</option>
+                                            <option value="2">2</option>
+                                            <option value="3">3</option>
+                                            <option value="4">4</option>
+                                            <option value="5">5</option>
+                                        </select>                                                
+                                    </label>
+                                </div>
+                                <div class="input-group">
+                                    <button class="btn btn-warning"  (click)="newRating()"> OK </button>  
+                                </div>
+                            </div>
+                        </figcaption>
+                    </figure>
+                </div>
+            </div>            
+            <div class="col-xs-12 divider text-center">
+                <div class="col-xs-12 col-sm-4 emphasis">
+                    <h2><strong> 20,7K </strong></h2>                    
+                    <p><small>Followers</small></p>
+                    <button class="btn btn-success btn-block"><span class="fa fa-plus-circle"></span> Follow </button>
+                </div>
+                <div class="col-xs-12 col-sm-4 emphasis">
+                    <h2><strong>245</strong></h2>                    
+                    <p><small>Following</small></p>
+                    <button class="btn btn-info btn-block"><span class="fa fa-user"></span> View Profile </button>
+                </div>
+                <div class="col-xs-12 col-sm-4 emphasis">
+                    <h2><strong>43</strong></h2>                    
+                    <p><small>Snippets</small></p>
+                    <div class="btn-group dropup btn-block">
+                      <button type="button" class="btn btn-primary"><span class="fa fa-gear"></span> Options </button>
+                      <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+                        <span class="caret"></span>
+                        <span class="sr-only">Toggle Dropdown</span>
+                      </button>
+                    </div><br>
+                    <div *ngIf="user">
+                        <button class="btn btn-warning" *ngIf="Authorized" (click)="editProfile()"><span class="fa fa-edit"></span> Edit Profile </button>                        
+                    </div>
+                </div>
+            </div>
+    	 </div>                 
+		</div>
+	</div>
+</div>
+
+<div>
+    <ol>
+        <li *ngFor="let comment of comments" id="{{comment._id}}"> 
+           <strong>{{getCommentById(comment.replyCommentId)}}</strong> <br> 
+            {{comment.text}} <br>
+            <a (click)="replyComment(comment._id)"> Reply </a> <br> 
+            <form *ngIf="commentReplying == comment._id"> 
+                    <textarea name="comment" cols="150" rows="10" [(ngModel)]="newComments.text">Reply</textarea><br><br>
+                    <button type="button" (click)="reply(comment._id)">Reply</button>
+            </form>
+            <a (click)="onEditClick(comment._id)">Edit</a><br>
+            <a (click)="onDeleteClick(comment._id)">Delete</a>
+            <form *ngIf="commentEditing == comment._id"> 
+                <textarea name="comment" cols="150" rows="10" [(ngModel)]="comment.text">Edit</textarea><br><br>
+                <button type="button" (click)="doEditComment(comment.text)">Edit</button>
+            </form>
+        </li>
+    </ol>
+</div>
+
+<div *ngIf="Authorized">
+    <form>
+        <textarea name="comment" cols="150" rows="10" [(ngModel)]="newComments.text">Write a comment</textarea><br><br>
+        <button type="button" (click)="sendComment()">Send comment</button>
+    </form>
+</div>
+
